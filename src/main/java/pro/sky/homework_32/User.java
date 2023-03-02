@@ -7,13 +7,14 @@ public class User {
     private String login;
     private String email;
 
-    private static final String DEFAULT_VALUE = "default";
+//    private static final String DEFAULT_VALUE = "default";
 
     public User(String login, String email) {
         if (login.equals(email)) {
-            setLogin(login);
-            setEmail(email);
+            throw new IllegalArgumentException();
         }
+        setLogin(login);
+        setEmail(email);
     }
 
     public User() {
@@ -21,13 +22,17 @@ public class User {
         this.email = null;
     }
 
+
+
     public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
-        if (login == null || login.isEmpty() || login.isBlank()) {
-            this.login = DEFAULT_VALUE;
+        if (login == null
+                || login.isEmpty()
+                || login.isBlank()) {
+            throw new IllegalArgumentException();
         } else {
             this.login = login;
         }
@@ -43,7 +48,7 @@ public class User {
                 || email.isBlank()
                 || !email.contains("@")
                 || !email.contains(".")) {
-            this.email = DEFAULT_VALUE;
+            throw new IllegalArgumentException();
         } else {
             this.email = email;
         }

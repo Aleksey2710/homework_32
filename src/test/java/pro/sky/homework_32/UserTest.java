@@ -3,6 +3,8 @@ package pro.sky.homework_32;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class UserTest {
 
     private static final String CORRECT_LOGIN = "Ivan";
@@ -15,7 +17,7 @@ class UserTest {
     private static final String BLANK_VALUE = " ";
     private static final String DEFAULT_VALUE = "default";
 
-    private final User user = new User();
+    private User user;
 
 //    @BeforeEach
 //    public void setUp() {
@@ -24,26 +26,29 @@ class UserTest {
 
     @Test
     public void shouldAddUserWithParameters() {
-        user.setLogin(CORRECT_LOGIN);
-        user.setEmail(CORRECT_MAIL);
+        user=new User(CORRECT_LOGIN,CORRECT_MAIL);
 
-        Assertions.assertEquals(user.getLogin(), CORRECT_LOGIN);
-        Assertions.assertEquals(user.getEmail(), CORRECT_MAIL);
+        assertNotNull(user.getLogin());
+        assertNotNull(user.getEmail());
     }
 
     @Test
     public void shouldAddUserNotParameters() {
-        user.setLogin(null);
-        user.setEmail(null);
+        user=new User();
 
-        Assertions.assertEquals(user.getLogin(), DEFAULT_VALUE);
-        Assertions.assertEquals(user.getEmail(), DEFAULT_VALUE);
+        assertNull(user.getLogin());
+        assertNull(user.getEmail());
     }
 
     @Test
     public void shouldAddUserParametersWithBlankAndEmpty() { //Ради интереса посмотреть, что будет (для себя)
-        user.setLogin(EMPTY_VALUE);
-        user.setEmail(BLANK_VALUE);
+//        user = new User(EMPTY_VALUE,BLANK_VALUE);
+//
+//        assertThrows(IllegalArgumentException.class, ()->user.setLogin(EMPTY_VALUE));
+
+        user=new User(EMPTY_VALUE,BLANK_VALUE);
+//        user.setLogin(EMPTY_VALUE);
+//        user.setEmail(BLANK_VALUE);
 
         Assertions.assertEquals(user.getLogin(), DEFAULT_VALUE);
         Assertions.assertEquals(user.getEmail(), DEFAULT_VALUE);
@@ -51,24 +56,24 @@ class UserTest {
 
     @Test
     public void shouldCheckIsCorrectEmail1() {
-        user.setLogin(CORRECT_LOGIN);
-        user.setEmail(DEFAULT_MAIL_1);
+
+        user=new User(CORRECT_LOGIN,DEFAULT_MAIL_1);
 
         Assertions.assertEquals(user.getEmail(), DEFAULT_VALUE);
     }
 
     @Test
     public void shouldCheckIsCorrectEmail2() {
-        user.setLogin(CORRECT_LOGIN);
-        user.setEmail(DEFAULT_MAIL_2);
+
+        user=new User(CORRECT_LOGIN,DEFAULT_MAIL_2);
 
         Assertions.assertEquals(user.getEmail(), DEFAULT_VALUE);
     }
 
     @Test
     public void shouldCheckIsEqualsLoginAndEmail() {
-        user.setLogin(CORRECT_LOGIN);
-        user.setEmail(DEFAULT_MAIL_CLONE_LOGIN);
+
+        user=new User(CORRECT_LOGIN,DEFAULT_MAIL_CLONE_LOGIN);
 
         Assertions.assertEquals(user.getEmail(), DEFAULT_VALUE);
     }
